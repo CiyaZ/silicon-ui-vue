@@ -1,0 +1,171 @@
+<template>
+  <div>
+    <div :class="['form-input', 'form-input-' + layout]">
+      <label
+        :class="['si-fg-' + labelFgColor]"
+        :style="computedLabelStyle"
+        :for="'uid-' + uniqueId"
+        v-if="label"
+        >{{ label }}</label
+      >
+      <select
+        :class="['si-bg-' + bgColor, 'si-fg-' + fgColor]"
+        :id="'uid-' + uniqueId"
+        @focus="this.onFocus"
+        @blur="this.onBlur"
+        @change="this.onChange($event)"
+      >
+        <option
+          v-for="option in options"
+          :value="option.value"
+          :key="option.value"
+          :selected="option.value === initialValue ? 'selected' : undefined"
+        >
+          {{ option.text }}
+        </option>
+        <slot></slot>
+      </select>
+    </div>
+    <div class="form-err" v-if="errMsg" :style="computedErrStyle">
+      {{ errMsg }}
+    </div>
+  </div>
+</template>
+<script>
+import { ref, computed } from "vue";
+import uid from "../../utils/uid";
+export default {
+  name: "si-select",
+  props: {
+    options: {
+      type: Array,
+      required: true,
+    },
+    initialValue: {
+      type: String,
+      default: null,
+    },
+    modelValue: {
+      type: String,
+    },
+    label: {
+      type: String,
+      default: null,
+    },
+    labelFgColor: {
+      type: String,
+      default: "gray",
+    },
+    labelWidth: {
+      type: Number,
+      default: 120,
+    },
+    fgColor: {
+      type: String,
+      default: "black",
+    },
+    bgColor: {
+      type: String,
+      default: "white-lighten-3",
+    },
+    layout: {
+      type: String,
+      default: "inline",
+      validator: function (value) {
+        return ["inline", "block"].indexOf(value) !== -1;
+      },
+    },
+    errMsg: {
+      type: String,
+      default: "",
+    },
+  },
+  setup(props) {
+    const uniqueId = uid();
+    const value = ref(props.initialValue);
+    const computedLabelStyle = computed(() => {
+      if (props.layout === "inline") {
+        return { width: props.labelWidth + "px" };
+      }
+    });
+    const computedErrStyle = computed(() => {
+      if (props.layout === "inline") {
+        return { marginLeft: props.labelWidth + 8 + "px" };
+      }
+    });
+    return { value, uniqueId, computedLabelStyle, computedErrStyle };
+  },
+  emits: ["focus", "blur", "change", "update:modelValue"],
+  mounted() {
+    if (this.initialValue) {
+      this.$emit("update:modelValue", this.value);
+    }
+  },
+  methods: {
+    onFocus() {
+      this.$emit("focus", this.value);
+    },
+    onBlur() {
+      this.$emit("blur", this.value);
+    },
+    onChange(ev) {
+      this.value = ev.target.value;
+      this.$emit("change", this.value);
+      this.$emit("update:modelValue", this.value);
+    },
+    val(arg) {
+      if (arg) {
+        this.value = arg;
+      }
+      return this.value;
+    },
+  },
+};
+</script>
+<style scoped>
+.form-input {
+  padding: 7px 9px;
+}
+
+.form-input label {
+  vertical-align: top;
+  text-align: right;
+  display: inline-block;
+  padding: 4px;
+  color: var(--fg-color);
+}
+
+.form-input select {
+  display: inline-block;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  outline: none;
+  padding: 2px 7px;
+  transition: all 0.3s;
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+}
+
+.form-input select:focus {
+  border: 1px solid lightskyblue;
+}
+
+.form-input.form-input-inline {
+  display: flex;
+}
+
+.form-input.form-input-block label {
+  display: block;
+  text-align: left;
+}
+
+.form-input.form-input-block select {
+  display: block;
+  width: 100%;
+}
+
+.form-err {
+  margin-right: 9px;
+  color: #ff0000;
+}
+</style>
