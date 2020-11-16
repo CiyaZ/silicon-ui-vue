@@ -21,6 +21,7 @@ import Search from './search';
 import Select from './select';
 import Radio from './radio';
 import Checkbox from './checkbox';
+import Layer from './layer';
 
 import './styles/global.css';
 import './styles/palette.css';
@@ -51,6 +52,7 @@ const components = [
     Select,
     Radio,
     Checkbox,
+    Layer,
 ];
 
 export default {

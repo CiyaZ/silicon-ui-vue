@@ -22,6 +22,9 @@ export default {
     anim: {
       type: String,
     },
+    style: {
+      type: Object,
+    },
   },
   computed: {
     computedClass() {
@@ -40,9 +43,9 @@ export default {
       return classArr;
     },
     computedStyle() {
-      let styleObj = {};
+      let styleObj = { ...this.style };
       // 字体大小
-      styleObj.fontSize = this.fontSize + 'px';
+      styleObj.fontSize = this.fontSize + "px";
       return styleObj;
     },
   },

@@ -20,4 +20,4 @@
 | fontSize | 字体大小，单位为`px`,默认`16px`即`1rem`            | Number | 16     | no       |
 | fgColor  | 调色板前景色，即字体颜色                           | String | gray   | no       |
 | anim     | 动画，参考`animation.css`（不需要`si-anim-`前缀）  | String | -      | no       |
-
+| style    | 额外CSS，用于覆盖默认样式                          | Object | -      | no      |

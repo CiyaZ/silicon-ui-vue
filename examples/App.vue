@@ -128,11 +128,30 @@
               >
               <si-button
                 :loading="this.loading"
-                @click="this.handleClick()"
+                @click="this.showLayer()"
                 :style="{ marginLeft: '10px' }"
                 size="small"
                 >点我</si-button
               >
+              <si-layer ref="layer" title="警告" bgColor="white" fgColor="black">
+                <div :style="{ padding: '5px 15px' }">
+                  <div :style="{ textAlign: 'left' }">你确定要这样做吗?</div>
+                  <div :style="{ marginTop: '15px', marginBottom: '5px', overflow: 'hidden' }">
+                    <si-button
+                      bgColor="red"
+                      :style="{ float: 'right' }"
+                      size="small"
+                      >确认</si-button
+                    >
+                    <si-button
+                      bgColor="light-green"
+                      size="small"
+                      :style="{ float: 'right', marginRight: '5px' }"
+                      >取消</si-button
+                    >
+                  </div>
+                </div>
+              </si-layer>
             </si-card>
 
             <!-- <si-container :fluid="true" :style="{ marginTop: '10px' }"> -->
@@ -148,6 +167,7 @@
               <si-col :span="18">
                 <si-loading :loading="loading">
                   <si-card>
+                    <si-button>呵呵了</si-button>
                     <si-search
                       size="large"
                       placeholder="请输入搜索内容..."
@@ -232,6 +252,9 @@ export default {
     };
   },
   methods: {
+    showLayer() {
+      this.$refs.layer.show();
+    },
     aaaa() {
       this.$refs.tab.pushItem({ key: "huawii", text: "华为222" });
     },
