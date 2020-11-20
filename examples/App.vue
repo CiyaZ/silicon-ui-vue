@@ -101,11 +101,6 @@
             </si-card>
 
             <si-card :style="{ marginTop: '10px' }">
-              <!-- <si-carousel :aspectRatio="0.3" :height="365" :items="[
-                {image: 'https://gec.10010.com/multi/unified-storage/image/202004/2004241343586068.jpg', href: 'http://www.baidu.com'},
-                {image: 'https://gec.10010.com/multi/unified-storage/image/202007/2007211312288156.png'},
-                {image: 'https://gec.10010.com/multi/unified-storage/image/202002/2002280903269467.jpg'},
-              ]"></si-carousel> -->
             </si-card>
 
             <si-card :style="{ marginTop: '10px' }">
