@@ -101,6 +101,19 @@
             </si-card>
 
             <si-card :style="{ marginTop: '10px' }">
+              <si-step
+                @step-selected="bbbb($event)"
+                :clickable="true"
+                :initialStep="1"
+                ref="step"
+                direction="vertical"
+                :items="[
+                  { text: '选择业务' },
+                  { text: '确认缴费' },
+                  { text: '支付完成' },
+                ]"
+              ></si-step>
+              <si-button @click="handleStepBtn">步骤函数触发</si-button>
             </si-card>
 
             <si-card :style="{ marginTop: '10px' }">
@@ -128,10 +141,21 @@
                 size="small"
                 >点我</si-button
               >
-              <si-layer ref="layer" title="警告" bgColor="white" fgColor="black">
+              <si-layer
+                ref="layer"
+                title="警告"
+                bgColor="white"
+                fgColor="black"
+              >
                 <div :style="{ padding: '5px 15px' }">
                   <div :style="{ textAlign: 'left' }">你确定要这样做吗?</div>
-                  <div :style="{ marginTop: '15px', marginBottom: '5px', overflow: 'hidden' }">
+                  <div
+                    :style="{
+                      marginTop: '15px',
+                      marginBottom: '5px',
+                      overflow: 'hidden',
+                    }"
+                  >
                     <si-button
                       bgColor="red"
                       :style="{ float: 'right' }"
@@ -247,6 +271,10 @@ export default {
     };
   },
   methods: {
+    handleStepBtn() {
+      this.$refs.step.nextStep();
+      console.log(this.$refs.step.getCurrentStep());
+    },
     showLayer() {
       this.$refs.layer.show();
     },

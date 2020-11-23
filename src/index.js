@@ -23,6 +23,7 @@ import Radio from './radio';
 import Checkbox from './checkbox';
 import Layer from './layer';
 import Carousel from './carousel';
+import Step from './step';
 
 import './styles/global.css';
 import './styles/palette.css';
@@ -55,6 +56,7 @@ const components = [
     Checkbox,
     Layer,
     Carousel,
+    Step,
 ];
 
 export default {
